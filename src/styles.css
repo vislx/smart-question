@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+.navbar{
+  position: relative;
+}
+.brand {
+  position: absolute;
+  left: 50%;
+  margin-left: -50px !important;  /* 50% of your logo width */
+  display: block;
+}
