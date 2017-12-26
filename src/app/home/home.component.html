@@ -1,1 +1,25 @@
 <app-nav [mode]="'home'"></app-nav>
+<div class="jumbotron" style="height: calc(100vh - 56px); margin-bottom: 0; background-color: transparent;">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col"></div>
+      <div class="col">
+        <h1>Hello, Test Ninja!</h1>
+        <form [formGroup]="accessCodeForm" (ngSubmit)="sendAccessCode()" class="mt-lg-5">
+          <div class="row">
+            <div class="col-8">
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="accessCode" placeholder="Enter your access code...">
+              </div>
+            </div>
+            <div class="col-4">
+              <button class="btn btn-block btn-primary" type="submit">Go!</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+
+</div>

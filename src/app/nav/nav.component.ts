@@ -7,10 +7,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NavComponent implements OnInit {
   @Input() mode: string;
+  background_class: string;
 
   constructor() { }
 
   ngOnInit() {
+    this.background_class = 'nav-background-' + this.mode;
   }
 
   showSwitchToHome(): boolean {

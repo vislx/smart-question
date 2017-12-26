@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -24,7 +25,7 @@ const appRoutes: Routes = [
     NavComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, { enableTracing: true })
   ],
   providers: [],
