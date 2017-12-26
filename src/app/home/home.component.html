@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col-8">
               <div class="form-group">
-                <input type="text" class="form-control" formControlName="accessCode" placeholder="Enter your access code...">
+                <input type="text" class="form-control" formControlName="accessCode" placeholder="Enter your access code..." (keydown)="typeAccessCode()">
               </div>
             </div>
             <div class="col-4">
@@ -17,6 +17,7 @@
             </div>
           </div>
         </form>
+        <p class="text-danger small" *ngIf="invalidAccessCode">Please enter correct access code!</p>
       </div>
       <div class="col"></div>
     </div>

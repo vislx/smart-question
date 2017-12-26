@@ -7,10 +7,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AdminComponent } from './admin/admin.component';
 import { NavComponent } from './nav/nav.component';
+import {AuthenticateService} from "./authenticate.service";
+import {TestQuestionService} from "./test-question.service";
+import { TestQuestionComponent } from './test-question/test-question.component';
+import { NavTestComponent } from './nav-test/nav-test.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'admin', component: AdminComponent },
+  { path: 'test/:user', component: TestQuestionComponent },
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -22,13 +27,15 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     AdminComponent,
-    NavComponent
+    NavComponent,
+    TestQuestionComponent,
+    NavTestComponent
   ],
   imports: [
     BrowserModule, ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, { enableTracing: true })
   ],
-  providers: [],
+  providers: [AuthenticateService, TestQuestionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
