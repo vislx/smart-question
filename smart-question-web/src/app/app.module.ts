@@ -11,10 +11,15 @@ import {AuthenticateService} from "./authenticate.service";
 import {TestQuestionService} from "./test-question.service";
 import { TestQuestionComponent } from './test-question/test-question.component';
 import { NavTestComponent } from './nav-test/nav-test.component';
+import { NavAdminComponent } from './nav-admin/nav-admin.component';
+import { AdminTestComponent } from './admin-test/admin-test.component';
+import { AdminQuestionComponent } from './admin-question/admin-question.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'admin', component: AdminComponent },
+  { path: 'admin/test', component: AdminTestComponent },
+  { path: 'admin/question', component: AdminQuestionComponent },
   { path: 'test/:user', component: TestQuestionComponent },
   { path: '',
     redirectTo: '/home',
@@ -29,7 +34,10 @@ const appRoutes: Routes = [
     AdminComponent,
     NavComponent,
     TestQuestionComponent,
-    NavTestComponent
+    NavTestComponent,
+    NavAdminComponent,
+    AdminTestComponent,
+    AdminQuestionComponent
   ],
   imports: [
     BrowserModule, ReactiveFormsModule,

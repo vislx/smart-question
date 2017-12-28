@@ -1,1 +1,26 @@
 <app-nav [mode]="'admin'"></app-nav>
+<div class="jumbotron" style="height: calc(100vh - 56px); margin-bottom: 0; background-color: transparent;">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col"></div>
+      <div class="col">
+        <h1>This is admin portal :)</h1>
+        <form [formGroup]="adminPasswordForm" (ngSubmit)="sendAdminPassword()" class="mt-lg-5">
+          <div class="row">
+            <div class="col-8">
+              <div class="form-group">
+                <input type="password" class="form-control" formControlName="password" placeholder="Enter admin password..." (keydown)="onPassowrdKeyDown()">
+              </div>
+            </div>
+            <div class="col-4">
+              <button class="btn btn-block btn-primary" type="submit">Go!</button>
+            </div>
+          </div>
+        </form>
+        <p class="text-danger small" *ngIf="invalidAccessCode">Please enter correct admin password!</p>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+
+</div>
