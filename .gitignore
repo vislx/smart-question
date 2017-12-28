@@ -7,7 +7,11 @@
 # Dependencies
 node_modules/
 
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+# Local Data
+data/db/*
+diagnostic.data
+journal/
+
+# Configuration File
+config.json
+
