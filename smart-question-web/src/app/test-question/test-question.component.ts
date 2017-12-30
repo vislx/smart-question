@@ -15,11 +15,7 @@ export class TestQuestionComponent implements OnInit {
   public mcqAnswerForm: FormGroup;
   
   public current: any;
-  private answerRecord = {
-    longest: '',
-    shortest: ' ',
-    keypressed: 0
-  };
+  private answerRecord: any;
   
   public characterLimit = 1000;
 
@@ -42,7 +38,13 @@ export class TestQuestionComponent implements OnInit {
   }
   
   getCurrentQuestion() {
+    this.paragraphAnswerForm.reset();
     this.current = this.tqs.getCurrentQuestion();
+    this.answerRecord = {
+      longest: '',
+      shortest: ' ',
+      keypressed: 0
+    };
     
     if (this.current.question.type === 'paragraph') {
       this.paragraphAnswerForm.setValue({'answer': this.current.question.paragraph_preset_answer});
@@ -85,6 +87,8 @@ export class TestQuestionComponent implements OnInit {
     } else {
       this.getCurrentQuestion();
     }
+    
+    console.log(this.answerRecord);
   }
   
   mcqSubmit() {

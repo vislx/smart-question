@@ -7,7 +7,7 @@ declare var moment: any;
 export class TestQuestionService {
   
   public questions = [];
-  public answers = [];
+  // public answers = [];
   
   public n = 0;
   public i = 0;
@@ -60,11 +60,7 @@ export class TestQuestionService {
   }
   
   public answerQuestion(answer) {
-    this.answers.push({
-      i: this.i,
-      answer: answer,
-      time: moment()
-    });
+    this.questions[this.i].answer = answer;
     this.i++;
   }
   
@@ -84,7 +80,6 @@ export class TestQuestionService {
       end: this.end_time,
       duration: this.end_time.diff(this.start_time, 'seconds'),
       questions: this.questions,
-      answers: this.answers
     } : null;
   }
   

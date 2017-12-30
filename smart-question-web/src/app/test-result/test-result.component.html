@@ -1,0 +1,97 @@
+<app-nav></app-nav>
+<div class="container mt-lg-5">
+  <div class="row">
+    <div class="col col-md-2 col-lg-3"></div>
+    <div class="col col-md-8 col-lg-6">
+
+      <div class="my-lg-5">
+        <h3>Here is the result:</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <strong>Start</strong>: {{testResult.start.format("MMM d YYYY, HH:mm:ss")}}
+        </div>
+        <div class="col-12">
+          <strong>End</strong>: {{testResult.end.format("MMM d YYYY, HH:mm:ss")}}
+        </div>
+        <div class="col-12">
+          <strong>Duration</strong>: {{testResult.duration}} seconds
+        </div>
+      </div>
+
+      <div class="row my-3" *ngFor="let item of testResult.questions; index as i">
+        <div class="col-12">
+          <p>
+            <span class="text-question-body">Question {{i + 1}}:</span><br/>
+            <span>{{item.body}}</span>
+          </p>
+        </div>
+
+        <div class="col-12 my-1">
+          <span>Preset Answer</span>:
+          <span class="text-muted font-italic" *ngIf="!item.paragraph_preset_answer">None</span>
+          <div class="card" *ngIf="item.paragraph_preset_answer">
+            <div class="card-body text-muted">
+              {{item.paragraph_preset_answer}}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 my-1">
+          <span>Touched</span>:
+          <span class="text-success" *ngIf="item.answer.dirty">Yes</span>
+          <span class="text-danger" *ngIf="!item.answer.dirty">No</span>
+        </div>
+
+        <!--if the user touched the answer, show details-->
+        <div class="col-12" *ngIf="item.answer.dirty">
+          <div class="row">
+
+            <div class="col-12 my-1">
+              <span>Final Answer</span>:
+              <span class="text-muted font-italic" *ngIf="!item.answer.final_answer || item.answer.final_answer === ''  || item.answer.final_answer === ' '">None</span>
+              <div class="card" *ngIf="item.answer.final_answer && item.answer.final_answer != ''  && item.answer.final_answer != ' '">
+                <div class="card-body">
+                  {{item.answer.final_answer}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 my-1">
+              <span>Number of Keys Press</span>: {{item.answer.keypressed}}
+            </div>
+
+            <div class="col-12 my-1">
+              <span>Shortest Answer</span>:
+              <span class="text-muted font-italic" *ngIf="!item.answer.shortest || item.answer.shortest === ''  || item.answer.shortest === ' '">None</span>
+              <div class="card" *ngIf="item.answer.shortest && item.answer.shortest != ''  && item.answer.shortest != ' '">
+                <div class="card-body">
+                  {{item.answer.shortest}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 my-1">
+              <span>Longest Answer</span>:
+              <span class="text-muted font-italic" *ngIf="!item.answer.longest || item.answer.longest === ''  || item.answer.longest === ' '">None</span>
+              <div class="card" *ngIf="item.answer.longest && item.answer.longest != ''  && item.answer.longest != ' '">
+                <div class="card-body">
+                  {{item.answer.longest}}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div><!--End of touched answer-->
+
+      </div>
+
+      <div class="row mt-lg-5">
+        <div class="col">
+          <a class="btn btn-primary" routerLink="/home">Exit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
