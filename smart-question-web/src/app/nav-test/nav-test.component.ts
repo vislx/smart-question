@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'app-nav-test',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-test.component.css']
 })
 export class NavTestComponent implements OnInit {
+  
+  @Input() total_questions_n: number;
+  @Input() current_question_i: number;
 
   constructor() { }
 
