@@ -28,11 +28,11 @@ export class AdminComponent implements OnInit {
   }
   
   sendAdminPassword() {
-    const result = this.authService.admin_login(this.adminPasswordForm.get('password').value);
-    if (result.success) {
-      this.router.navigate(['/admin/test/'], {queryParams: {'key': result.key}});
-    } else {
-      this.invalidPassword = true;
-    }
+    // const result = this.authService.admin_login(this.adminPasswordForm.get('password').value);
+    // if (result.success) {
+    //   this.router.navigate(['/admin/test/'], {queryParams: {'key': result.key}});
+    // } else {
+    //   this.invalidPassword = true;
+    // }
   }
 }
