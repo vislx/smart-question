@@ -1,22 +1,53 @@
-<app-nav-test></app-nav-test>
+<app-nav-test [total_questions_n]="tqs.n" [current_question_i]="tqs.i"></app-nav-test>
 <div class="container mt-lg-5">
   <div class="row">
     <div class="col col-md-2 col-lg-3"></div>
     <div class="col col-md-8 col-lg-6">
-      <form [formGroup]="answerForm">
-        <div class="form-group">
-          <p>Question 1:<br/>
-            <span class="text-question-body">How is the weather today?</span>
-          </p>
-          <textarea class="form-control" formControlName="user_answer"
-                    style="min-height: 200px; resize: none;">
 
-          </textarea>
-
-          <small id="emailHelp" class="form-text text-muted">You may click 'Next' no matter if you answer this question or not.</small>
+      <!--paragraph question-->
+      <div class="row" *ngIf="current && current.question.type === 'paragraph' ">
+        <div class="col">
+          <form [formGroup]="paragraphAnswerForm" (ngSubmit)="paragraphSubmit()">
+            <div class="form-group">
+              <p>Question {{tqs.i + 1}}:<br/>
+                <span class="text-question-body">{{current.question.body}}</span>
+              </p>
+              <div class="alert alert-danger" *ngIf="answer.invalid && (answer.dirty || answer.touched) && answer.errors.maxlength">Your answer exceeds the maximum {{characterLimit}} characters limit.</div>
+              <textarea class="form-control" formControlName="answer"
+                        style="min-height: 200px; resize: none;"
+                        (keydown)="paragraphKeyDown($event)"
+                        (keypress)="paragraphKeyPressed($event)">
+              </textarea>
+              <div class="text-muted small">Maximum {{characterLimit}} characters.</div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="paragraphAnswerForm.invalid">{{current.isLast ? 'Finish' : 'Next'}}</button>
+          </form>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Next</button>
-      </form>
+      </div>
+
+      <!--&lt;!&ndash;mcq question&ndash;&gt;-->
+      <!--<div class="row" *ngIf="current && current.question.type === 'mcq' ">-->
+        <!--<div class="col">-->
+          <!--<form [formGroup]="mcqAnswerForm" (ngSubmit)="mcqSubmit()">-->
+            <!--<div class="form-group">-->
+              <!--<p>Question 1:<br/>-->
+                <!--<span class="text-question-body">{{current.question.body}}</span>-->
+              <!--</p>-->
+            <!--</div>-->
+
+            <!--<div class="form-group" style="margin-left: 25px;">-->
+              <!--<div class="form-check" *ngFor="let option of current.question.mcq_answers; index as i;">-->
+                <!--<input class="form-check-input" type="radio" formControlName="answer" value="{{option}}">-->
+                <!--<label class="form-check-label">-->
+                  <!--{{option}}-->
+                <!--</label>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!--<button type="submit" class="btn btn-primary">{{current.isLast ? 'Finish' : 'Next'}}</button>-->
+          <!--</form>-->
+        <!--</div>-->
+      <!--</div>-->
 
 
     </div>

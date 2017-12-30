@@ -15,6 +15,7 @@ import { NavAdminComponent } from './nav-admin/nav-admin.component';
 import { AdminTestComponent } from './admin-test/admin-test.component';
 import { AdminQuestionComponent } from './admin-question/admin-question.component';
 import { TestReadyComponent } from './test-ready/test-ready.component';
+import { TestResultComponent } from './test-result/test-result.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,6 +23,8 @@ const appRoutes: Routes = [
   { path: 'admin/test', component: AdminTestComponent },
   { path: 'admin/question', component: AdminQuestionComponent },
   { path: 'test', component: TestQuestionComponent },
+  { path: 'test-ready', component: TestReadyComponent },
+  { path: 'test-result', component: TestResultComponent },
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -39,7 +42,8 @@ const appRoutes: Routes = [
     NavAdminComponent,
     AdminTestComponent,
     AdminQuestionComponent,
-    TestReadyComponent
+    TestReadyComponent,
+    TestResultComponent
   ],
   imports: [
     BrowserModule, ReactiveFormsModule,

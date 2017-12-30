@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TestQuestionService} from "../test-question.service";
 
 @Component({
   selector: 'app-test-question',
@@ -9,34 +10,88 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TestQuestionComponent implements OnInit {
   
-  user: string;
-  key: string;
-  sub = [];
   
-  public answerForm: FormGroup;
+  public paragraphAnswerForm: FormGroup;
+  public mcqAnswerForm: FormGroup;
+  
+  public current: any;
+  private answerRecord = {
+    longest: '',
+    shortest: ' ',
+    keypressed: 0
+  };
+  
+  public characterLimit = 1000;
 
   constructor(private route: ActivatedRoute,
-              private fb: FormBuilder) {
-    this.sub[0] = this.route.params.subscribe(params => {
-      this.user = params['user'];
-    });
-    this.sub[1] = this.route.queryParams.subscribe(queryParams => {
-      this.key = queryParams.key;
-    });
-    this.answerForm = fb.group({
-      'user_answer': ['', Validators.required]
-    })
+              private fb: FormBuilder,
+              private tqs: TestQuestionService,
+              private router: Router) {
+    this.paragraphAnswerForm = fb.group({
+      'answer': ['', [
+        Validators.maxLength(this.characterLimit)
+      ]]});
+  
+    this.mcqAnswerForm = fb.group({'answer': ['', Validators.required]})
   }
 
   ngOnInit() {
-  
+    this.tqs.retrieveTest();
+    this.tqs.start();
+    this.getCurrentQuestion();
   }
   
-  ngOnDestory() {
-    this.sub[0].unsubscribe();
-    this.sub[1].unsubscribe();
+  getCurrentQuestion() {
+    this.current = this.tqs.getCurrentQuestion();
+    
+    if (this.current.question.type === 'paragraph') {
+      this.paragraphAnswerForm.setValue({'answer': this.current.question.paragraph_preset_answer});
+    }
+    
+    console.log(this.current);
   }
   
+  paragraphKeyDown(event) {
+    let temp = this.answer.value;
+    // record shortest
+    if (!temp) {
+      if (this.answer.dirty) {
+      
+      }
+    } else if (this.answerRecord.shortest.length >= temp.length) {
+      this.answerRecord.shortest = temp;
+    }
+  }
   
-
+  paragraphKeyPressed(event) {
+    let temp = this.answer.value;
+    // record longest
+    if (temp && this.answerRecord.longest.length < temp.length) {
+      this.answerRecord.longest = temp;
+    }
+    // record number of times pressing keys
+    this.answerRecord.keypressed ++;
+  }
+  
+  paragraphSubmit() {
+    this.answerRecord['final_answer'] = this.answer.value;
+    this.answerRecord['dirty'] = this.answer.dirty;
+    console.log('paragraphSubmit', this.answerRecord);
+    
+    this.tqs.answerQuestion(this.answerRecord);
+    if (this.current.isLast) {
+      this.tqs.submit();
+      this.router.navigate(['/test-result']);
+    } else {
+      this.getCurrentQuestion();
+    }
+  }
+  
+  mcqSubmit() {
+    console.log('mcqSubmit', this.mcqAnswerForm.get('answer').value);
+  }
+  
+  get answer () {return this.paragraphAnswerForm.get('answer'); }
+  
+  
 }
